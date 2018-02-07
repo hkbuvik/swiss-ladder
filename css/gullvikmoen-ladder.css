@@ -1,0 +1,51 @@
+body {
+    padding: 1em;
+    background: #eeeeee;
+}
+
+fieldset {
+    padding: 0.5em;
+    margin-bottom: 1em;
+}
+
+legend {
+    font-weight: bold;
+    font-size: larger;
+}
+
+label {
+    font-size: large;
+}
+
+button {
+    background-color: #b3d4fc;
+    padding: 0.4em 0.4em 0.4em;
+    margin-top: 1em;
+}
+
+input {
+    margin-bottom: 0.5em;
+}
+
+.points {
+    width: 2ch;
+}
+
+.right {
+    float: right;
+}
+
+#rankingPanel {
+    border: solid 1px black;
+    background-color: whitesmoke;
+}
+
+#pairingPanel {
+}
+
+#pairPlayersButton {
+}
+
+#endRoundButton {
+    width: 100%;
+}
