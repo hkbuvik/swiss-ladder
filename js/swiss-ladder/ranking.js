@@ -20,7 +20,7 @@ $swiss.ranking = function () {
                 current.rank = current.score === previous.score ? previous.rank : j + 1;
             } else if (previous) {
                 current.rank = current.score === previous.score ? previous.rank : rankingNameAndScore.length;
-            } else if (next) {
+            } else {
                 current.rank = 1;
             }
         }
