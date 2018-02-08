@@ -62,7 +62,7 @@ $swiss.ladder.test = function () {
     console.assert(ranking.length === 5, "5 players should have been ranked");
     console.assert(ranking[0].score === 72, "Best score should have been 72");
     var worstScore = ranking[ranking.length - 1].score;
-    console.assert(worstScore === -9, "Worst score should have been -9, was " + worstScore);
+    console.assert(worstScore === -10, "Worst score should have been -10, was " + worstScore);
     matches = ladder.pairing();
     console.assert(matches.length === 1, "There should have been one more match");
     firstMatch = matches[0];

@@ -19,7 +19,7 @@ $swiss.player = function () {
         function walkOver() {
             log(name() + " must walk over");
             hasAtLeastOneWalkOver = true;
-            totalScore += Math.round(Math.abs(totalScore) / 2);
+            totalScore += parseInt(Math.abs(totalScore) / 2, 10);
         }
 
         function hasWalkOver() {
