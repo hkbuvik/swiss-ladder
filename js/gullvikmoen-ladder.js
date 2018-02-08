@@ -97,7 +97,9 @@ $gullvikmoen.controller = function () {
         for (var i = 0; i < players.length; i++) {
             var li = document.createElement("li");
             li.id = "player" + (players.length - 1);
-            li.innerHTML = "<a href=javascript:$gullvikmoen.controller.removePlayer(" + i + ")>" + players[i].name() + "</a>";
+            li.innerHTML = "<a href=javascript:$gullvikmoen.controller.removePlayer(" + i + ")>";
+            li.innerHTML += players[i].name();
+            li.innerHTML += "</a>";
             playerList.appendChild(li);
         }
         playerName.focus();
@@ -111,23 +113,29 @@ $gullvikmoen.controller = function () {
         for (var i = 0; i < ranking.length; i++) {
             var div = document.createElement("div");
             div.id = "rank" + (players.length - 1);
-            div.innerHTML = ranking[i].rank + ". " + ranking[i].playerName + "<span class='right'>(" + ranking[i].score + ")</span>";
+            div.innerHTML = ranking[i].rank + ". " + ranking[i].playerName;
+            div.innerHTML += "<span class='right'>(" + ranking[i].score + ")</span>";
             rankingList.appendChild(div);
         }
     }
 
     function renderMatches() {
         pairingList.innerHTML = "";
+        var table = "<table>";
         roundSpan.innerText = "" + roundCount;
         for (var i = 0; i < matches.length; i++) {
-            var match = matches[i];
-            var div = document.createElement("div");
-            div.id = "match" + (matches.length - 1);
-            div.innerHTML = (i + 1) + ". " + match.name() + ": " +
-                "<input type='text' minlength='1' maxlength='2' required id='pointsPlayerAMatch" + i + "' class='points'> - " +
-                "<input type='text' minlength='1' maxlength='2' required id='pointsPlayerBMatch" + i + "' class='points'>";
-            pairingList.appendChild(div);
+            table += "<tr><td>" + (i + 1) + ". " + matches[i].name() + ": </td>";
+            table += "<td>" +
+                "<input type='text' minlength='1' maxlength='2' required id='pointsPlayerAMatch" + i + "' class='points'>" +
+                "</td>";
+            table += "<td> - </td>";
+            table += "<td>" +
+                "<input type='text' minlength='1' maxlength='2' required id='pointsPlayerBMatch" + i + "' class='points'>" +
+                "</td>";
+            table += "</tr>";
         }
+        table += "</table>";
+        pairingList.innerHTML = table;
         roundCount++;
     }
 
