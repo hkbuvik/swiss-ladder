@@ -1,11 +1,7 @@
 body {
-    padding: 1em;
+    padding: 0;
     background: #eeeeee;
-}
-
-fieldset {
-    padding: 0.5em;
-    margin-bottom: 1em;
+    font-family: "Droid Sans", sans-serif;
 }
 
 legend {
@@ -13,13 +9,9 @@ legend {
     font-size: larger;
 }
 
-label {
-    font-size: large;
-}
-
 button {
     background-color: #b3d4fc;
-    padding: 0.4em 0.4em 0.4em;
+    padding: 0.4em 0.4em 0.2em 0.4em;
     margin-top: 1em;
 }
 
@@ -35,6 +27,19 @@ input {
     float: right;
 }
 
+fieldset {
+    padding: 0.5em;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+#title {
+    font-size: medium;
+    padding: 0.6em 0.6em 0.2em 0.6em;
+    color: #4d4d4d;
+    background-color: lightgrey;
+}
+
 #rankingPanel {
     border: solid 1px black;
     background-color: whitesmoke;
@@ -44,6 +49,7 @@ input {
 }
 
 #pairPlayersButton {
+    width: 100%;
 }
 
 #endRoundButton {

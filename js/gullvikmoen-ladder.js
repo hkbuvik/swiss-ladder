@@ -18,10 +18,9 @@ $gullvikmoen.controller = function () {
     var pairingList = document.getElementById('pairingList');
     var roundSpan = document.getElementById('roundSpan');
     var pairPlayersButton = document.getElementById('pairPlayersButton');
-    var endRoundButton = document.getElementById('endRoundButton');
     var ladderFinished = document.getElementById('ladderFinished');
 
-    document.getElementsByTagName("input").item(0).focus()
+    document.getElementsByTagName("input").item(0).focus();
 
     function addPlayer(event) {
         if (event.target.id === "playerName" && event.keyCode !== 13) {
