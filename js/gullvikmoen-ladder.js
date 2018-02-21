@@ -94,11 +94,12 @@ $gullvikmoen.controller = function () {
     function renderPlayers() {
         playerList.innerHTML = "";
         for (var i = 0; i < players.length; i++) {
+            var a = document.createElement("a");
+            a.href = 'javascript:$gullvikmoen.controller.removePlayer(' + i + ');';
+            a.innerText = "" + players[i].name();
             var li = document.createElement("li");
             li.id = "player" + (players.length - 1);
-            li.innerHTML = "<a href=javascript:$gullvikmoen.controller.removePlayer(" + i + ")>";
-            li.innerHTML += players[i].name();
-            li.innerHTML += "</a>";
+            li.appendChild(a);
             playerList.appendChild(li);
         }
         playerName.focus();
