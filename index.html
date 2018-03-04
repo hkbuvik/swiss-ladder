@@ -24,7 +24,55 @@
 </p>
 <![endif]-->
 
-<div id="title">Gullvikmoen Swiss ladder</div>
+<header>
+    <div class="title">
+        <span class="gullvikmoen">Gullvikmoen</span> Swiss ladder <a id="aboutLink" class="right" href="">Om</a>
+    </div>
+</header>
+
+<div id="aboutPanel" class="hidden">
+    <fieldset>
+        <legend>Hva er Swiss ladder?</legend>
+        Swiss ladder er et
+        <a target="_blank" href="https://en.wikipedia.org/wiki/Swiss-system_tournament">turneringssystem</a> hvor
+        ingen spillere blir slått ut, slik som i vanlige turneringer, men spiller i alle kamprundene.
+        <p></p>
+        Gullvikmoen badmintonklubb sin utgave Swiss ladder er en enkel versjon med følgende egenskaper:
+    </fieldset>
+    <fieldset>
+        <legend>Oppsett av kamper</legend>
+        I første kamprunde blir alle spillere tilfeldig sortert.
+        <p></p>
+        Videre fungerer oppsett av kamper på følgende måte:
+        <ul>
+            <li>Det er kun ett sett i hver kamp. Man bestemmer på forhånd hvilken poengscore man spiller til. Det
+                anbefales å ha en absolutt grense, altså at man ikke trenger to poeng ledelse for å vinne. Dette gjør at
+                ingen kamper blir langvarige og på den måten forsinker turneringen.
+            </li>
+            <li>Ingen spiller to ganger mot samme motstander.</li>
+            <li>En spiller møter alltid den neste spilleren under/over på rankinglista <i>som han ikke har møtt
+                tidligere</i>.
+            </li>
+        </ul>
+    </fieldset>
+    <fieldset>
+        <legend>Ranking</legend>
+        Etter hver kamprunde beregnes blir spillerne er rangert etter netto poengscore. Det vil si at man alltid har en
+        oppdatert resultatliste og kan avslutte turneringen før alle mulige kamper er spilt, hvis man ønsker.
+        <p></p>
+        Hvis en spiller må stå over en kamprunde (på grunn av odde antall spillere, eller ingen ledige
+        motstandere som man ikke møtt tidligere), får spilleren en kompensasjon i sin poengscore.
+    </fieldset>
+    <fieldset>
+        <legend>Om applikasjonen</legend>
+        I nåværende versjon lagrer applikasjonen ingen data, hverken på din datamaskin/mobile enhet eller noe annet
+        sted.
+        <p></p>
+        Denne applikasjonen kan benyttes fritt. Den er publisert som Open Source, på
+        <a href="https://github.com/hkbuvik/swiss-ladder" target="_blank">GitHub</a>. Tilbakemeldinger mottas med takk,
+        på <a href="mailto:hkbuvik@gmail.com">e-post til Håvard Kvam Buvik</a>.
+    </fieldset>
+</div>
 
 <fieldset id="addPlayersPanel">
     <legend>Registrer spillere</legend>
@@ -45,7 +93,10 @@
     <button id="endRoundButton">Avslutt denne runden</button>
 </fieldset>
 
-<div id="ladderFinished" class="hidden">Ferdig!</div>
+<div id="ladderFinishedPanel" class="hidden">
+    Turneringen er ferdig!
+    <button id="restartButton">Start ny turnering</button>
+</div>
 
 <script src="js/swiss-ladder/console.js"></script>
 <script src="js/swiss-ladder/player.js"></script>

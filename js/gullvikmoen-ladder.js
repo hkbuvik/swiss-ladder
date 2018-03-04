@@ -2,25 +2,40 @@ var $gullvikmoen = window.$gullvikmoen || {};
 
 $gullvikmoen.controller = function () {
 
-    var players = [];
-    var ladder = undefined;
-    var ranking = undefined;
-    var matches = undefined;
-    var roundCount = 1;
+    var showAbout;
+    var players;
+    var ladder;
+    var ranking;
+    var matches;
+    var roundCount;
 
+    var aboutPanel = document.getElementById('aboutPanel');
     var addPlayersPanel = document.getElementById('addPlayersPanel');
     var rankingPanel = document.getElementById('rankingPanel');
-    var pairingPanel = document.getElementById('pairingPanel');
+    var ladderFinishedPanel = document.getElementById('ladderFinishedPanel');
 
+    var pairingPanel = document.getElementById('pairingPanel');
+    var aboutLink = document.getElementById('aboutLink');
     var playerName = document.getElementById('playerName');
     var playerList = document.getElementById('playerList');
     var rankingList = document.getElementById('rankingList');
     var pairingList = document.getElementById('pairingList');
     var roundSpan = document.getElementById('roundSpan');
     var pairPlayersButton = document.getElementById('pairPlayersButton');
-    var ladderFinished = document.getElementById('ladderFinished');
 
-    document.getElementsByTagName("input").item(0).focus();
+    init();
+
+    function init() {
+        players = [];
+        ladder = null;
+        ranking = null;
+        matches = null;
+        roundCount = 1;
+        addPlayersPanel.className = "";
+        rankingPanel.className = "hidden";
+        pairingPanel.className = "hidden";
+        document.getElementsByTagName("input").item(0).focus();
+    }
 
     function addPlayer(event) {
         if (event.target.id === "playerName" && event.keyCode !== 13) {
@@ -42,13 +57,11 @@ $gullvikmoen.controller = function () {
     }
 
     function pairPlayers() {
-        ranking = [];
-        matches = [];
-        if (!ladder) {
+        if (ladder == null) {
             ladder = $swiss.ladder.create(players);
         }
         ranking = ladder.ranking();
-        renderShowMatchesAndRanking();
+        renderMatchesAndRanking();
         matches = ladder.pairing();
         if (matches.length === 0) {
             renderLadderFinished();
@@ -86,9 +99,22 @@ $gullvikmoen.controller = function () {
         pairPlayers();
     }
 
+    function restart() {
+        ladderFinishedPanel.className = "hidden";
+        init();
+        renderPlayers();
+    }
+
+    function renderAbout(event) {
+        event && event.preventDefault();
+        showAbout = !showAbout;
+        aboutLink.innerText = showAbout ? "Skjul Om" : "Om";
+        aboutPanel.className = showAbout ? "" : "hidden";
+    }
+
     function renderLadderFinished() {
         pairingPanel.className = "hidden";
-        ladderFinished.className = "";
+        ladderFinishedPanel.className = "";
     }
 
     function renderPlayers() {
@@ -105,7 +131,7 @@ $gullvikmoen.controller = function () {
         playerName.focus();
     }
 
-    function renderShowMatchesAndRanking() {
+    function renderMatchesAndRanking() {
         addPlayersPanel.className = "hidden";
         rankingPanel.className = "";
         pairingPanel.className = "";
@@ -140,10 +166,12 @@ $gullvikmoen.controller = function () {
     }
 
     return {
+        renderAbout: renderAbout,
         addPlayer: addPlayer,
         removePlayer: removePlayer,
         pairPlayers: pairPlayers,
-        endRound: endRound
+        endRound: endRound,
+        restart: restart
     }
 }();
 
@@ -202,6 +230,11 @@ $gullvikmoen.setup = function () {
             .forId('addPlayerButton')
             .handleWith($gullvikmoen.controller.addPlayer));
     document.addEventListener(
+        "click",
+        $gullvikmoen.delegate
+            .forId('aboutLink')
+            .handleWith($gullvikmoen.controller.renderAbout));
+    document.addEventListener(
         'keydown',
         $gullvikmoen.delegate
             .forId('playerName')
@@ -217,6 +250,12 @@ $gullvikmoen.setup = function () {
         $gullvikmoen.delegate
             .forId('endRoundButton')
             .handleWith($gullvikmoen.controller.endRound)
+    );
+    document.addEventListener(
+        "click",
+        $gullvikmoen.delegate
+            .forId('restartButton')
+            .handleWith($gullvikmoen.controller.restart)
     );
 
 }();

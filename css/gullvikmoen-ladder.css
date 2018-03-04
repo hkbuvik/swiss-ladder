@@ -4,6 +4,11 @@ body {
     font-family: "Droid Sans", sans-serif;
 }
 
+header {
+    height: 2.5em;
+    margin: 0 auto;
+}
+
 legend {
     font-weight: bold;
     font-size: larger;
@@ -19,6 +24,30 @@ input {
     margin-bottom: 0.5em;
 }
 
+fieldset {
+    padding: 0.5em;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+.title {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-size: medium;
+    padding: 0.6em 0.6em 0.2em 0.6em;
+    color: #4d4d4d;
+    background-color: lightgrey;
+    border-bottom: #222222 solid 1px;
+    font-family: "Gill Sans", sans-serif;
+    font-weight: bold;
+}
+
+.gullvikmoen {
+    color: peru;
+}
+
 .points {
     width: 3ch;
 }
@@ -27,17 +56,12 @@ input {
     float: right;
 }
 
-fieldset {
-    padding: 0.5em;
-    margin-bottom: 1em;
-    margin-top: 1em;
+#aboutLink {
+    padding-right: 1em;
 }
 
-#title {
-    font-size: medium;
-    padding: 0.6em 0.6em 0.2em 0.6em;
-    color: #4d4d4d;
-    background-color: lightgrey;
+#aboutPanel fieldset {
+    margin-bottom: 0;
 }
 
 #rankingPanel {
@@ -45,13 +69,14 @@ fieldset {
     background-color: whitesmoke;
 }
 
-#pairingPanel {
-}
-
 #pairPlayersButton {
     width: 100%;
 }
 
 #endRoundButton {
+    width: 100%;
+}
+
+#restartButton {
     width: 100%;
 }
