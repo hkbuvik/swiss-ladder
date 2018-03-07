@@ -1,6 +1,18 @@
+html {
+    height: 100%;
+}
+
 body {
     padding: 0;
     background: #eeeeee;
+    background: -moz-linear-gradient(top, #eeeeee 0%, lightgrey 100%); /* FF3.6-15 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eeeeee), color-stop(100%, lightgrey)); /* Chrome4-9,Safari4-5 */
+    background: -webkit-linear-gradient(top, #eeeeee 0%, lightgrey 100%); /* Chrome10-25,Safari5.1-6 */
+    background: -o-linear-gradient(top, #eeeeee 0%, lightgrey 100%); /* Opera 11.10-11.50 */
+    background: -ms-linear-gradient(top, #eeeeee 0%, lightgrey 100%); /* IE10 preview */
+    background: linear-gradient(to bottom, #eeeeee 0%, lightgrey 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background-repeat: no-repeat;
+    background-attachment: fixed;;
     font-family: "Droid Sans", sans-serif;
 }
 
