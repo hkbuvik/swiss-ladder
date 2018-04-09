@@ -32,9 +32,9 @@ $swiss.player = function () {
             log(name() + " got " + score + " points against " + opponentName);
         }
 
-        function hasPlayed(otherPlayerName) {
-            var hasPlayed = opponentNames.indexOf(otherPlayerName) >= 0;
-            log(name() + " has " + (hasPlayed ? "" : "NOT ") + "played against " + otherPlayerName);
+        function hasPlayed(otherPlayer) {
+            var hasPlayed = opponentNames.indexOf(otherPlayer.name()) >= 0;
+            log(name() + " has " + (hasPlayed ? "" : "NOT ") + "played against " + otherPlayer.name());
             return hasPlayed;
         }
 

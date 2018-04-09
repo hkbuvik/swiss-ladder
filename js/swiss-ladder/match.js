@@ -8,7 +8,7 @@ $swiss.match = function () {
         var games = [];
 
         function name() {
-            return playerA.name() + " vs " + playerB.name();
+            return playerA.name() + " - " + playerB.name();
         }
 
         function addGame(pointsPlayerA, pointsPlayerB) {
@@ -34,9 +34,14 @@ $swiss.match = function () {
             return score;
         }
 
+        function isAPlayer(player) {
+            return player.name() === playerA.name() || player.name() === playerB.name();
+        }
+
         return {
             name: name,
             addGame: addGame,
+            isAPlayer: isAPlayer,
             end: end
         }
     }

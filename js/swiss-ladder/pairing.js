@@ -12,7 +12,7 @@ $swiss.pairing = function () {
 
             var playerA = players[i];
             debug("Start finding player A in match " + (matches.length + 1) + ": " + playerA.name());
-            if (matchesContains(playerA.name())) {
+            if (matchesContains(playerA)) {
                 debug("Player " + playerA.name() + " has already a match, skipping search");
                 continue;
             }
@@ -21,7 +21,7 @@ $swiss.pairing = function () {
 
             if (playerB) {
                 if (
-                    matchesContains(playerB.name())) {
+                    matchesContains(playerB)) {
                     playerA.walkOver();
                 } else {
                     var match = $swiss.match.create(playerA, playerB);
@@ -42,10 +42,10 @@ $swiss.pairing = function () {
         return matches;
     }
 
-    function matchesContains(playerName) {
+    function matchesContains(player) {
         for (var i = 0; i < matches.length; i++) {
             var match = matches[i];
-            if (match.name().indexOf(playerName) >= 0) {
+            if (match.isAPlayer(player)) {
                 return true;
             }
         }
@@ -56,8 +56,8 @@ $swiss.pairing = function () {
         var playerBCandidate;
         for (var j = 0; j < players.length; j++) {
             playerBCandidate = players[j];
-            if (matchesContains(playerBCandidate.name()) ||
-                playerBCandidate.hasPlayed(playerA.name()) ||
+            if (matchesContains(playerBCandidate) ||
+                playerBCandidate.hasPlayed(playerA) ||
                 playerA.name() === playerBCandidate.name()) {
                 debug("Player " + playerBCandidate.name() + " has already played or matched, searching further...");
                 playerBCandidate = players[j];

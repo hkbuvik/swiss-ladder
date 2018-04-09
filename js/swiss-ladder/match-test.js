@@ -2,7 +2,7 @@ var $swiss = window.$swiss || {};
 
 $swiss.match.test = function () {
     console.groupCollapsed("match.test");
-    var playerA = $swiss.player.create("A");
+    var playerA = $swiss.player.create("Sara");
     var playerB = $swiss.player.create("B");
     var match = $swiss.match.create(playerA, playerB);
 
@@ -19,5 +19,6 @@ $swiss.match.test = function () {
     console.assert(
         playerBScore === expectedBScore,
         "Player B score should be " + expectedBScore + ", was " + playerBScore);
+    console.assert(!match.isAPlayer($swiss.player.create("Sara Marie")));
     console.groupEnd();
 }();

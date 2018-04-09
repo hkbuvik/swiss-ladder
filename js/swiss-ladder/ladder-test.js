@@ -7,7 +7,7 @@ $swiss.ladder.test = function () {
     var player2 = $swiss.player.create("Henrik");
     var player3 = $swiss.player.create("Sara");
     var player4 = $swiss.player.create("Jonas");
-    var player5 = $swiss.player.create("Siv");
+    var player5 = $swiss.player.create("Sara Marie");
     var players = [player1, player2, player3, player4, player5];
     var ladder = $swiss.ladder.create(players);
 
