@@ -61,7 +61,7 @@ $gullvikmoen.controller = function () {
             ladder = $swiss.ladder.create(players);
         }
         ranking = ladder.ranking();
-        renderMatchesAndRanking();
+        renderRanking();
         if (roundCount > ladder.roundsToPlay()) {
             renderLadderFinished();
         } else {
@@ -131,11 +131,17 @@ $gullvikmoen.controller = function () {
         playerName.focus();
     }
 
-    function renderMatchesAndRanking() {
+    function renderRanking() {
         addPlayersPanel.className = "hidden";
-        rankingPanel.className = "";
         pairingPanel.className = "";
-        rankingList.innerHTML = "";
+        if (roundCount === 1) {
+            return;
+        }
+        rankingPanel.className = "";
+        var round = document.createElement("h4");
+        round.innerHTML = roundCount === 1 ? "Før start" : "Etter runde " + (roundCount - 1);
+        var thisRoundRankingList = document.createElement("div");
+        thisRoundRankingList.appendChild(round);
         for (var i = 0; i < ranking.length; i++) {
             var div = document.createElement("div");
             div.id = "rank" + (players.length - 1);
@@ -143,8 +149,9 @@ $gullvikmoen.controller = function () {
                 "<span title=" + ranking[i].score + ">" +
                 ranking[i].rank + ". " + ranking[i].playerName +
                 "</span>";
-            rankingList.appendChild(div);
+            thisRoundRankingList.appendChild(div);
         }
+        rankingList.innerHTML = thisRoundRankingList.innerHTML + rankingList.innerHTML;
     }
 
     function renderMatches() {
