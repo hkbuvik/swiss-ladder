@@ -10,7 +10,8 @@ $swiss.pairing = function () {
         matches = [];
         for (var i = 0; i < players.length; i++) {
 
-            var playerA = players[i];
+            var playerWithWalkOver = i === 0 && findPlayerWithWalkOver(playersToPair);
+            var playerA = playerWithWalkOver ? playerWithWalkOver : players[i];
             debug("Start finding player A in match " + (matches.length + 1) + ": " + playerA.name());
             if (matchesContains(playerA)) {
                 debug("Player " + playerA.name() + " has already a match, skipping search");
@@ -40,6 +41,14 @@ $swiss.pairing = function () {
             warn("No playable matches!");
         }
         return matches;
+    }
+
+    function findPlayerWithWalkOver(players) {
+        for (var i = 0; i < players.length; i++) {
+            if (players[i].hasWalkOver()) {
+                return players[i];
+            }
+        }
     }
 
     function matchesContains(player) {
