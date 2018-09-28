@@ -71,6 +71,10 @@ $swiss.ladder = function () {
             log(pairing);
         }
 
+        function roundsToPlay() {
+            return Math.ceil(Math.log(players.length) * Math.LOG2E);
+        }
+
         function log(message) {
             console.info("ladder # " + message);
         }
@@ -85,7 +89,8 @@ $swiss.ladder = function () {
 
         return {
             ranking: ranking,
-            pairing: pairing
+            pairing: pairing,
+            roundsToPlay: roundsToPlay
         }
     }
 

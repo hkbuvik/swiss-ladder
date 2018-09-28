@@ -62,10 +62,10 @@ $gullvikmoen.controller = function () {
         }
         ranking = ladder.ranking();
         renderMatchesAndRanking();
-        matches = ladder.pairing();
-        if (matches.length === 0) {
+        if (roundCount > ladder.roundsToPlay()) {
             renderLadderFinished();
         } else {
+            matches = ladder.pairing();
             renderMatches();
         }
     }
@@ -148,7 +148,7 @@ $gullvikmoen.controller = function () {
     function renderMatches() {
         pairingList.innerHTML = "";
         var table = "<table>";
-        roundSpan.innerText = "" + roundCount;
+        roundSpan.innerText = "" + roundCount + " (av " + ladder.roundsToPlay() + ")";
         for (var i = 0; i < matches.length; i++) {
             table += "<tr><td>" + (i + 1) + ". " + matches[i].name() + ": </td>";
             table += "<td>" +
