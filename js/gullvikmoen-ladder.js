@@ -139,8 +139,10 @@ $gullvikmoen.controller = function () {
         for (var i = 0; i < ranking.length; i++) {
             var div = document.createElement("div");
             div.id = "rank" + (players.length - 1);
-            div.innerHTML = ranking[i].rank + ". " + ranking[i].playerName;
-            div.innerHTML += "<span class='right'>(" + ranking[i].score + ")</span>";
+            div.innerHTML =
+                "<span title=" + ranking[i].score + ">" +
+                ranking[i].rank + ". " + ranking[i].playerName +
+                "</span>";
             rankingList.appendChild(div);
         }
     }
