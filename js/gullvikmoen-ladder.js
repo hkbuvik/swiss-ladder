@@ -34,6 +34,7 @@ $gullvikmoen.controller = function () {
         addPlayersPanel.className = "";
         rankingPanel.className = "hidden";
         pairingPanel.className = "hidden";
+        rankingList.innerHTML = "";
         document.getElementsByTagName("input").item(0).focus();
     }
 
