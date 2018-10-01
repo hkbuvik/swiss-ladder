@@ -17,6 +17,7 @@ $gullvikmoen.controller = function () {
     var pairingPanel = document.getElementById('pairingPanel');
     var aboutLink = document.getElementById('aboutLink');
     var playerName = document.getElementById('playerName');
+    var roundsToPlay = document.getElementById('roundsToPlay');
     var playerList = document.getElementById('playerList');
     var rankingList = document.getElementById('rankingList');
     var pairingList = document.getElementById('pairingList');
@@ -130,6 +131,7 @@ $gullvikmoen.controller = function () {
             li.appendChild(a);
             playerList.appendChild(li);
         }
+        roundsToPlay.innerText = "" + Math.ceil(Math.log(players.length) * Math.LOG2E);
         playerName.focus();
     }
 
