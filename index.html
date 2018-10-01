@@ -24,7 +24,17 @@
 
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/gullvikmoen-ladder.css">
+    <link rel="stylesheet" href="css/gullvikmoen-ladder.css?v=1">
+
+    <script defer src="js/swiss-ladder/console.js?v=1"></script>
+    <script defer src="js/swiss-ladder/player.js?v=1"></script>
+    <script defer src="js/swiss-ladder/match.js?v=1"></script>
+    <script defer src="js/swiss-ladder/match-test.js?v=1"></script>
+    <script defer src="js/swiss-ladder/ranking.js?v=1"></script>
+    <script defer src="js/swiss-ladder/pairing.js?v=1"></script>
+    <script defer src="js/swiss-ladder/ladder.js?v=1"></script>
+    <script defer src="js/swiss-ladder/ladder-test.js?v=1"></script>
+    <script defer src="js/gullvikmoen-ladder.js?v=1"></script>
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -105,19 +115,22 @@
 </fieldset>
 
 <fieldset id="rankingPanel" class="hidden">
-    <legend>Ranking</legend>
-    <div id="rankingList"></div>
+    <legend>Ranking og resultater</legend>
+    <table>
+        <thead>
+        </thead>
+        <tr>
+            <td valign="top">
+                <div id="rankingList"></div>
+            </td>
+            <td>&nbsp;</td>
+            <td valign="top">
+                <div id="resultsList"></div>
+            </td>
+        </tr>
+    </table>
 </fieldset>
 
-<script src="js/swiss-ladder/console.js"></script>
-<script src="js/swiss-ladder/player.js"></script>
-<script src="js/swiss-ladder/match.js"></script>
-<script src="js/swiss-ladder/match-test.js"></script>
-<script src="js/swiss-ladder/ranking.js"></script>
-<script src="js/swiss-ladder/pairing.js"></script>
-<script src="js/swiss-ladder/ladder.js"></script>
-<script src="js/swiss-ladder/ladder-test.js"></script>
-<script src="js/gullvikmoen-ladder.js"></script>
 
 </body>
 </html>

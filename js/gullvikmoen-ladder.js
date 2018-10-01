@@ -20,6 +20,7 @@ $gullvikmoen.controller = function () {
     var playerList = document.getElementById('playerList');
     var rankingList = document.getElementById('rankingList');
     var pairingList = document.getElementById('pairingList');
+    var resultsList = document.getElementById('resultsList');
     var roundSpan = document.getElementById('roundSpan');
     var pairPlayersButton = document.getElementById('pairPlayersButton');
 
@@ -30,11 +31,12 @@ $gullvikmoen.controller = function () {
         ladder = null;
         ranking = null;
         matches = null;
-        roundCount = 1;
+        roundCount = 0;
         addPlayersPanel.className = "";
         rankingPanel.className = "hidden";
         pairingPanel.className = "hidden";
         rankingList.innerHTML = "";
+        resultsList.innerHTML = "";
         document.getElementsByTagName("input").item(0).focus();
     }
 
@@ -62,12 +64,12 @@ $gullvikmoen.controller = function () {
             ladder = $swiss.ladder.create(players);
         }
         ranking = ladder.ranking();
-        renderRanking();
-        if (roundCount > ladder.roundsToPlay()) {
+        renderRankingAndPlayedMatches(ranking, matches);
+        if (roundCount >= ladder.roundsToPlay()) {
             renderLadderFinished();
         } else {
             matches = ladder.pairing();
-            renderMatches();
+            renderNewMatches();
         }
     }
 
@@ -94,8 +96,7 @@ $gullvikmoen.controller = function () {
         for (var i = 0; i < matches.length; i++) {
             var pointsPlayerA = parseInt(document.getElementById("pointsPlayerAMatch" + i).value, 10);
             var pointsPlayerB = parseInt(document.getElementById("pointsPlayerBMatch" + i).value);
-            matches[i].addGame(pointsPlayerA, pointsPlayerB);
-            matches[i].end();
+            matches[i].result(pointsPlayerA, pointsPlayerB);
         }
         pairPlayers();
     }
@@ -132,15 +133,15 @@ $gullvikmoen.controller = function () {
         playerName.focus();
     }
 
-    function renderRanking() {
+    function renderRankingAndPlayedMatches(ranking, matches) {
         addPlayersPanel.className = "hidden";
         pairingPanel.className = "";
-        if (roundCount === 1) {
+        if (roundCount === 0) {
             return;
         }
         rankingPanel.className = "";
         var round = document.createElement("h4");
-        round.innerHTML = roundCount === 1 ? "Før start" : "Etter runde " + (roundCount - 1);
+        round.innerHTML = "Etter runde " + roundCount;
         var thisRoundRankingList = document.createElement("div");
         thisRoundRankingList.appendChild(round);
         for (var i = 0; i < ranking.length; i++) {
@@ -152,13 +153,28 @@ $gullvikmoen.controller = function () {
                 "</span>";
             thisRoundRankingList.appendChild(div);
         }
-        rankingList.innerHTML = thisRoundRankingList.innerHTML + rankingList.innerHTML;
+        if (matches) {
+            var table = "<table>";
+            for (var j = 0; j < matches.length; j++) {
+                table +=
+                    "<tr>" +
+                    "<td>" + matches[j].result().name + ": </td>" +
+                    "<td>&nbsp;</td>" +
+                    "<td>" + matches[j].result().points + "</td>" +
+                    "</tr>";
+            }
+            table += "</table>";
+        }
+        rankingList.innerHTML =
+            "<tr><td>" + thisRoundRankingList.innerHTML + "</td>" +
+            "<td><hr>" + table + resultsList.innerHTML + "</td></tr>" +
+            rankingList.innerHTML;
     }
 
-    function renderMatches() {
+    function renderNewMatches() {
         pairingList.innerHTML = "";
         var table = "<table>";
-        roundSpan.innerText = "" + roundCount + " (av " + ladder.roundsToPlay() + ")";
+        roundSpan.innerText = "" + (roundCount + 1) + " (av " + ladder.roundsToPlay() + ")";
         for (var i = 0; i < matches.length; i++) {
             table += "<tr><td>" + (i + 1) + ". " + matches[i].name() + ": </td>";
             table += "<td>" +
@@ -175,6 +191,7 @@ $gullvikmoen.controller = function () {
         roundCount++;
     }
 
+    // noinspection JSUnusedGlobalSymbols
     return {
         renderAbout: renderAbout,
         addPlayer: addPlayer,

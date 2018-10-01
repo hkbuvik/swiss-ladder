@@ -6,8 +6,7 @@ $swiss.match.test = function () {
     var playerB = $swiss.player.create("B");
     var match = $swiss.match.create(playerA, playerB);
 
-    match.addGame(21, 17);
-    match.end();
+    match.result(21, 17);
     var playerAScore = playerA.score();
     var expectedAScore = 4;
 

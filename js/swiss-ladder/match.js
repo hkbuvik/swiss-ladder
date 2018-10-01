@@ -4,34 +4,26 @@ $swiss.match = function () {
 
     function create(playerA, playerB) {
 
-        var notEnded = true;
-        var games = [];
+        var game = null;
 
         function name() {
             return playerA.name() + " - " + playerB.name();
         }
 
-        function addGame(pointsPlayerA, pointsPlayerB) {
-            if (notEnded) {
-                games.push([pointsPlayerA, pointsPlayerB]);
-            }
-        }
-
-        function end() {
-            if (notEnded) {
+        function result(pointsPlayerA, pointsPlayerB) {
+            if (game == null) {
+                game = [pointsPlayerA, pointsPlayerB];
                 playerA.addMatch(playerB.name(), scorePlayerA());
                 playerB.addMatch(playerA.name(), -scorePlayerA());
             }
-            notEnded = false;
+            return {
+                name: name(),
+                points: game[0] + " - " + game[1]
+            };
         }
 
         function scorePlayerA() {
-            var score = 0;
-            for (var i = 0; i < games.length; i++) {
-                var game = games[i];
-                score += game[0] - game[1];
-            }
-            return score;
+            return game[0] - game[1];
         }
 
         function isAPlayer(player) {
@@ -40,9 +32,8 @@ $swiss.match = function () {
 
         return {
             name: name,
-            addGame: addGame,
-            isAPlayer: isAPlayer,
-            end: end
+            result: result,
+            isAPlayer: isAPlayer
         }
     }
 

@@ -15,48 +15,39 @@ $swiss.ladder.test = function () {
     var matches = ladder.pairing();
     console.assert(matches.length === 2, "1. round should have 2 matches");
     var firstMatch = matches[0];
-    firstMatch.addGame(21, 0);
-    firstMatch.end();
+    firstMatch.result(21, 0);
     var secondMatch = matches[1];
-    secondMatch.addGame(21, 11);
-    secondMatch.end();
+    secondMatch.result(21, 11);
 
     ladder.ranking();
     matches = ladder.pairing();
     console.assert(matches.length === 2, "2. round should have 2 matches");
     firstMatch = matches[0];
-    firstMatch.addGame(21, 12);
-    firstMatch.end();
+    firstMatch.result(21, 12);
     secondMatch = matches[1];
-    secondMatch.addGame(11, 21);
-    secondMatch.end();
+    secondMatch.result(11, 21);
 
     ladder.ranking();
     matches = ladder.pairing();
     console.assert(matches.length === 2, "3. round should have 2 matches");
     firstMatch = matches[0];
-    firstMatch.addGame(21, 12);
-    firstMatch.end();
+    firstMatch.result(21, 12);
     secondMatch = matches[1];
-    secondMatch.addGame(11, 21);
-    secondMatch.end();
+    secondMatch.result(11, 21);
 
     ladder.ranking();
     matches = ladder.pairing();
     console.assert(matches.length === 2, "4. round should have 2 matches");
     firstMatch = matches[0];
-    firstMatch.addGame(21, 12);
-    firstMatch.end();
+    firstMatch.result(21, 12);
     secondMatch = matches[1];
-    secondMatch.addGame(11, 21);
-    secondMatch.end();
+    secondMatch.result(11, 21);
 
     ladder.ranking();
     matches = ladder.pairing();
     console.assert(matches.length === 1, "5. round should have 1 match");
     firstMatch = matches[0];
-    firstMatch.addGame(21, 19);
-    firstMatch.end();
+    firstMatch.result(21, 19);
 
     var ranking = ladder.ranking();
     console.assert(ranking.length === 5, "5 players should have been ranked");
@@ -66,8 +57,7 @@ $swiss.ladder.test = function () {
     matches = ladder.pairing();
     console.assert(matches.length === 1, "There should have been one more match");
     firstMatch = matches[0];
-    firstMatch.addGame(1, 21);
-    firstMatch.end();
+    firstMatch.result(1, 21);
 
     ladder.ranking();
     matches = ladder.pairing();
