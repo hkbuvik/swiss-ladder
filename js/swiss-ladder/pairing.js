@@ -63,7 +63,7 @@ $swiss.pairing = function () {
 
     function findCandidateB(playerA) {
         var playerBCandidate;
-        for (var j = 0; j < players.length; j++) {
+        for (var j = players.length - 1; j >= 0; j--) {
             playerBCandidate = players[j];
             if (matchesContains(playerBCandidate) ||
                 playerBCandidate.hasPlayed(playerA) ||
