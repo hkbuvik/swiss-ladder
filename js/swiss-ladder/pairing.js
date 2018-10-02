@@ -10,7 +10,7 @@ $swiss.pairing = function () {
         matches = [];
         for (var i = 0; i < players.length; i++) {
 
-            var playerWithWalkOver = i === 0 && findPlayerWithWalkOver(playersToPair);
+            var playerWithWalkOver = i === 0 && findPlayerWithWalkOverWithoutMatch(playersToPair);
             var playerA = playerWithWalkOver ? playerWithWalkOver : players[i];
             debug("Start finding player A in match " + (matches.length + 1) + ": " + playerA.name());
             if (matchesContains(playerA)) {
@@ -21,20 +21,14 @@ $swiss.pairing = function () {
             var playerB = findCandidateB(playerA);
 
             if (playerB) {
-                if (
-                    matchesContains(playerB)) {
-                    playerA.walkOver();
-                } else {
-                    var match = $swiss.match.create(playerA, playerB);
-                    matches.push(match);
-                    log("Match " + matches.length + " set up: " + match.name());
-                }
+                var match = $swiss.match.create(playerA, playerB);
+                matches.push(match);
+                log("Match " + matches.length + " set up: " + match.name());
             } else {
                 if (playerA.hasWalkOver()) {
                     warn("Player " + playerA.name() + " has already a WO!");
-                } else {
-                    playerA.walkOver();
                 }
+                playerA.walkOver();
             }
         }
         if (matches.length === 0) {
@@ -43,12 +37,14 @@ $swiss.pairing = function () {
         return matches;
     }
 
-    function findPlayerWithWalkOver(players) {
+    function findPlayerWithWalkOverWithoutMatch(players) {
         for (var i = 0; i < players.length; i++) {
-            if (players[i].hasWalkOver()) {
-                return players[i];
+            var player = players[i];
+            if (player.hasWalkOver() && !matchesContains(player)) {
+                return player;
             }
         }
+        return null;
     }
 
     function matchesContains(player) {
@@ -63,7 +59,7 @@ $swiss.pairing = function () {
 
     function findCandidateB(playerA) {
         var playerBCandidate;
-        for (var j = players.length - 1; j >= 0; j--) {
+        for (var j = 0; j < players.length; j++) {
             playerBCandidate = players[j];
             if (matchesContains(playerBCandidate) ||
                 playerBCandidate.hasPlayed(playerA) ||
@@ -75,6 +71,7 @@ $swiss.pairing = function () {
                 return playerBCandidate;
             }
         }
+        return null;
     }
 
     function debug(message) {
