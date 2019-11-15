@@ -24,17 +24,17 @@
 
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/gullvikmoen-ladder.css?v=1">
+    <link rel="stylesheet" href="css/gullvikmoen-ladder.css?v=4">
 
-    <script defer src="js/swiss-ladder/console.js?v=3"></script>
-    <script defer src="js/swiss-ladder/player.js?v=3"></script>
-    <script defer src="js/swiss-ladder/match.js?v=3"></script>
-    <script defer src="js/swiss-ladder/match-test.js?v=3"></script>
-    <script defer src="js/swiss-ladder/ranking.js?v=3"></script>
-    <script defer src="js/swiss-ladder/pairing.js?v=3"></script>
-    <script defer src="js/swiss-ladder/ladder.js?v=3"></script>
-    <script defer src="js/swiss-ladder/ladder-test.js?v=3"></script>
-    <script defer src="js/gullvikmoen-ladder.js?v=3"></script>
+    <script defer src="js/swiss-ladder/console.js?v=4"></script>
+    <script defer src="js/swiss-ladder/player.js?v=4"></script>
+    <script defer src="js/swiss-ladder/match.js?v=4"></script>
+    <script defer src="js/swiss-ladder/match-test.js?v=4"></script>
+    <script defer src="js/swiss-ladder/ranking.js?v=4"></script>
+    <script defer src="js/swiss-ladder/pairing.js?v=4"></script>
+    <script defer src="js/swiss-ladder/ladder.js?v=4"></script>
+    <script defer src="js/swiss-ladder/ladder-test.js?v=4"></script>
+    <script defer src="js/gullvikmoen-ladder.js?v=4"></script>
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -106,7 +106,10 @@
 </fieldset>
 
 <fieldset id="pairingPanel" class="hidden">
-    <legend>Kamper runde <span id="roundSpan"></span></legend>
+    <legend>
+        <a href="" id="abortLink">Avbryt denne turneringen</a><br>
+        Kamper runde <span id="roundSpan"></span>
+    </legend>
     <div id="pairingList"></div>
     <button id="endRoundButton">Avslutt denne runden</button>
 </fieldset>

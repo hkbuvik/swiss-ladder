@@ -3,7 +3,7 @@ var $gullvikmoen = window.$gullvikmoen || {};
 $gullvikmoen.controller = function () {
 
     var showAbout;
-    var players;
+    var players = [];
     var ladder;
     var ranking;
     var matches;
@@ -28,7 +28,9 @@ $gullvikmoen.controller = function () {
     init();
 
     function init() {
-        players = [];
+        for (var i = 0; i < players.length; i++) {
+            players[i].reset();
+        }
         ladder = null;
         ranking = null;
         matches = null;
@@ -102,7 +104,8 @@ $gullvikmoen.controller = function () {
         pairPlayers();
     }
 
-    function restart() {
+    function restart(event) {
+        event && event.preventDefault();
         ladderFinishedPanel.className = "hidden";
         init();
         renderPlayers();
@@ -284,6 +287,12 @@ $gullvikmoen.setup = function () {
         "click",
         $gullvikmoen.delegate
             .forId('restartButton')
+            .handleWith($gullvikmoen.controller.restart)
+    );
+    document.addEventListener(
+        "click",
+        $gullvikmoen.delegate
+            .forId('abortLink')
             .handleWith($gullvikmoen.controller.restart)
     );
 

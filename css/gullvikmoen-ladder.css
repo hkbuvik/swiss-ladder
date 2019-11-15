@@ -71,6 +71,12 @@ fieldset {
     float: right;
 }
 
+#abortLink {
+    padding-right: 1em;
+    font-size: medium;
+    font-weight: normal;
+}
+
 #aboutLink {
     padding-right: 1em;
 }

@@ -38,6 +38,12 @@ $swiss.player = function () {
             return hasPlayed;
         }
 
+        function reset() {
+            totalScore = 0;
+            opponentNames = [];
+            hasAtLeastOneWalkOver = false;
+        }
+
         function log(message) {
             console.debug("player # " + message);
         }
@@ -48,7 +54,8 @@ $swiss.player = function () {
             addMatch: addMatch,
             hasPlayed: hasPlayed,
             walkOver: walkOver,
-            hasWalkOver: hasWalkOver
+            hasWalkOver: hasWalkOver,
+            reset: reset
         }
     }
 
