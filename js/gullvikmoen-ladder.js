@@ -129,6 +129,7 @@ $gullvikmoen.controller = function () {
             var a = document.createElement("a");
             a.href = 'javascript:$gullvikmoen.controller.removePlayer(' + i + ');';
             a.innerText = "" + players[i].name();
+            a.title = "Klikk for å slette " + players[i].name();
             var li = document.createElement("li");
             li.id = "player" + (players.length - 1);
             li.appendChild(a);
