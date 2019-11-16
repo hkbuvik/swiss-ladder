@@ -24,7 +24,7 @@
 
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/gullvikmoen-ladder.css?v=4">
+    <link rel="stylesheet" href="css/gullvikmoen-ladder.css?v=5">
 
     <script defer src="js/swiss-ladder/console.js?v=4"></script>
     <script defer src="js/swiss-ladder/player.js?v=4"></script>
@@ -106,17 +106,15 @@
 </fieldset>
 
 <fieldset id="pairingPanel" class="hidden">
-    <legend>
-        <a href="" id="abortLink">Avbryt denne turneringen</a><br>
-        Kamper runde <span id="roundSpan"></span>
-    </legend>
+    <legend>Kamper runde <span id="roundSpan"></span></legend>
     <div id="pairingList"></div>
     <button id="endRoundButton">Avslutt denne runden</button>
+    <div><a href="" id="abortLink">Avbryt denne turneringen</a></div>
 </fieldset>
 
 <fieldset id="ladderFinishedPanel" class="hidden">
     <legend>Turneringen er ferdig!</legend>
-    <button id="restartButton">Start ny turnering</button>
+    <a href="" id="restartButton">Start ny turnering</a>
 </fieldset>
 
 <fieldset id="rankingPanel" class="hidden">

@@ -29,7 +29,6 @@ legend {
 button {
     background-color: #b3d4fc;
     padding: 0.4em 0.4em 0.2em 0.4em;
-    margin-top: 1em;
     border: #9a9a9a solid 1px;
     border-radius: 6px;
     -moz-border-radius: 6px;
@@ -72,9 +71,11 @@ fieldset {
 }
 
 #abortLink {
-    padding-right: 1em;
     font-size: medium;
     font-weight: normal;
+    text-align: center;
+    display: block;
+    padding-top: 1em;
 }
 
 #aboutLink {
@@ -91,13 +92,16 @@ fieldset {
 }
 
 #pairPlayersButton {
+    margin-top: 1em;
     width: 100%;
 }
 
 #endRoundButton {
+    margin-top: 1em;
     width: 100%;
 }
 
 #restartButton {
+    margin-top: 1em;
     width: 100%;
 }
