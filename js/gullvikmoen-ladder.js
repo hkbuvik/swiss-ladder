@@ -146,19 +146,39 @@ $gullvikmoen.controller = function () {
             return;
         }
         rankingPanel.className = "";
-        var round = document.createElement("h4");
+        var round = document.createElement("h3");
         round.innerHTML = "Etter runde " + roundCount;
         var thisRoundRankingList = document.createElement("div");
         thisRoundRankingList.appendChild(round);
+        var rankingTable = document.createElement("table");
+        var headerRow = document.createElement("thead");
+        var rankHeader = document.createElement("td");
+        rankHeader.innerText = "#";
+        var nameHeader = document.createElement("td");
+        nameHeader.innerText = "Navn";
+        var scoreHeader = document.createElement("td");
+        scoreHeader.innerText = "Poeng";
+        headerRow
+            .appendChild(rankHeader)
+            .appendChild(nameHeader)
+            .appendChild(scoreHeader);
+        rankingTable.appendChild(headerRow);
         for (var i = 0; i < ranking.length; i++) {
-            var div = document.createElement("div");
-            div.id = "rank" + (players.length - 1);
-            div.innerHTML =
-                "<span title=" + ranking[i].score + ">" +
-                ranking[i].rank + ". " + ranking[i].playerName +
-                "</span>";
-            thisRoundRankingList.appendChild(div);
+            var rankCell = document.createElement("td");
+            rankCell.innerText = ranking[i].rank + ". ";
+            var nameCell = document.createElement("td");
+            nameCell.innerText = ranking[i].playerName;
+            var scoreCell = document.createElement("td");
+            scoreCell.innerText = ranking[i].score;
+            scoreCell.className = "resultPoints right";
+            var rankingRow = document.createElement("tr");
+            rankingRow
+                .appendChild(rankCell)
+                .appendChild(nameCell)
+                .appendChild(scoreCell);
+            rankingTable.appendChild(rankingRow);
         }
+        thisRoundRankingList.appendChild(rankingTable);
         if (matches) {
             var table = "<table>";
             for (var j = 0; j < matches.length; j++) {
@@ -166,7 +186,7 @@ $gullvikmoen.controller = function () {
                     "<tr>" +
                     "<td>" + matches[j].result().name + ": </td>" +
                     "<td>&nbsp;</td>" +
-                    "<td>" + matches[j].result().points + "</td>" +
+                    "<td class='resultPoints'>" + matches[j].result().points + "</td>" +
                     "</tr>";
             }
             table += "</table>";
