@@ -26,14 +26,14 @@ $swiss.match = function () {
             return game[0] - game[1];
         }
 
-        function isAPlayer(player) {
+        function hasPlayer(player) {
             return player.name() === playerA.name() || player.name() === playerB.name();
         }
 
         return {
             name: name,
             result: result,
-            isAPlayer: isAPlayer
+            hasPlayer: hasPlayer
         }
     }
 

@@ -24,8 +24,8 @@ $swiss.ladder = function () {
             groupLog("Pairing players");
             var matches = $swiss.pairing.create(players);
             firstRound = false;
-            endGroupLog();
             logPairing(matches);
+            endGroupLog();
             return matches;
         }
 

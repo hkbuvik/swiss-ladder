@@ -55,9 +55,7 @@ $gullvikmoen.controller = function () {
             playerName.value = "";
             return;
         }
-        var alreadyAdded = players.some(function (player) {
-            return player.name() === thePlayerName
-        });
+        var alreadyAdded = players.some(player => player.name() === thePlayerName);
         if (alreadyAdded) {
             playerName.value = thePlayerName + " finnes allerede!";
             setTimeout(function () {

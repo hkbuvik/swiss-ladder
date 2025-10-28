@@ -2,6 +2,8 @@ var $swiss = window.$swiss || {};
 
 $swiss.pairing = function () {
 
+    const playersWithWalkover = [];
+
     var players = [];
     var matches = [];
 
@@ -10,10 +12,21 @@ $swiss.pairing = function () {
         matches = [];
         for (var i = 0; i < players.length; i++) {
 
-            var playerWithWalkOver = i === 0 && findPlayerWithWalkOverWithoutMatch(playersToPair);
-            var playerA = playerWithWalkOver ? playerWithWalkOver : players[i];
-            debug("Start finding player A in match " + (matches.length + 1) + ": " + playerA.name());
-            if (matchesContains(playerA)) {
+            debug("Start finding player A in match " + (matches.length + 1));
+            var playerA;
+
+            var playerWithWalkOver = i === 0 && playersToPair.find((player) => player.hasWalkOver());
+            if (playerWithWalkOver
+                && !playersWithWalkover.some(player => player.name() === playerWithWalkOver.name())) {
+                playersWithWalkover.push(playerWithWalkOver);
+                playerA = playerWithWalkOver;
+                debug("Found player A (with walkover): " + playerWithWalkOver.name());
+            } else {
+                playerA = players[i];
+                debug("Found player A: " + playerA.name());
+            }
+
+            if (matches.some(match => match.hasPlayer(playerA))) {
                 debug("Player " + playerA.name() + " has already a match, skipping search");
                 continue;
             }
@@ -25,50 +38,23 @@ $swiss.pairing = function () {
                 matches.push(match);
                 log("Match " + matches.length + " set up: " + match.name());
             } else {
-                if (playerA.hasWalkOver()) {
-                    warn("Player " + playerA.name() + " has already a WO!");
-                }
                 playerA.walkOver();
             }
         }
-        if (matches.length === 0) {
-            warn("No playable matches!");
-        }
+
         return matches;
     }
 
-    function findPlayerWithWalkOverWithoutMatch(players) {
-        for (var i = 0; i < players.length; i++) {
-            var player = players[i];
-            if (player.hasWalkOver() && !matchesContains(player)) {
-                return player;
-            }
-        }
-        return null;
-    }
-
-    function matchesContains(player) {
-        for (var i = 0; i < matches.length; i++) {
-            var match = matches[i];
-            if (match.isAPlayer(player)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     function findCandidateB(playerA) {
-        var playerBCandidate;
         for (var j = 0; j < players.length; j++) {
-            playerBCandidate = players[j];
-            if (matchesContains(playerBCandidate) ||
-                playerBCandidate.hasPlayed(playerA) ||
-                playerA.name() === playerBCandidate.name()) {
-                debug("Player " + playerBCandidate.name() + " has already played or matched, searching further...");
-                playerBCandidate = players[j];
+            var candidateB = players[j];
+            if (matches.some(match => match.hasPlayer(candidateB))
+                || candidateB.hasPlayed(playerA)
+                || candidateB.name() === playerA.name()) {
+                debug("Player " + candidateB.name() + " has already played with, or is in match with " + playerA.name());
             } else {
-                debug("Found new player B candidate: " + playerBCandidate.name());
-                return playerBCandidate;
+                debug("Found new player B candidate: " + candidateB.name());
+                return candidateB;
             }
         }
         return null;
@@ -80,10 +66,6 @@ $swiss.pairing = function () {
 
     function log(message) {
         console.info("pairing # " + message);
-    }
-
-    function warn(message) {
-        console.warn("pairing # " + message);
     }
 
     return {

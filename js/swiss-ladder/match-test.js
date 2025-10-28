@@ -18,6 +18,6 @@ $swiss.match.test = function () {
     console.assert(
         playerBScore === expectedBScore,
         "Player B score should be " + expectedBScore + ", was " + playerBScore);
-    console.assert(!match.isAPlayer($swiss.player.create("Sara Marie")));
+    console.assert(!match.hasPlayer($swiss.player.create("Sara Marie")));
     console.groupEnd();
 }();
