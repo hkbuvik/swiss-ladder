@@ -47,12 +47,25 @@ $gullvikmoen.controller = function () {
         if (event.target.id === "playerName" && event.keyCode !== 13) {
             return;
         }
-        if (!playerName.value || playerName.value.trim().length === 0) {
+        if (!playerName.value) {
+            return;
+        }
+        var thePlayerName = playerName.value.trim();
+        if (thePlayerName.length === 0) {
             playerName.value = "";
             return;
         }
-        var name = playerName.value;
-        players.push($swiss.player.create(name));
+        var alreadyAdded = players.some(function (player) {
+            return player.name() === thePlayerName
+        });
+        if (alreadyAdded) {
+            playerName.value = thePlayerName + " finnes allerede!";
+            setTimeout(function () {
+                playerName.value = "";
+            }, "700");
+            return;
+        }
+        players.push($swiss.player.create(thePlayerName));
         renderPlayers();
         playerName.value = "";
 
