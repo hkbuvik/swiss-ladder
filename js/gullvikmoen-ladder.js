@@ -47,6 +47,10 @@ $gullvikmoen.controller = function () {
         if (event.target.id === "playerName" && event.keyCode !== 13) {
             return;
         }
+        if (!playerName.value || playerName.value.trim().length === 0) {
+            playerName.value = "";
+            return;
+        }
         var name = playerName.value;
         players.push($swiss.player.create(name));
         renderPlayers();
