@@ -1,30 +1,43 @@
+// noinspection ES6ConvertVarToLetConst
 var $swiss = window.$swiss || {};
 
 $swiss.ranking = function () {
 
     function create(players) {
-        var rankingNameAndScore = [];
-        for (var i = 0; i < players.length; i++) {
-            rankingNameAndScore.push(
-                {
-                    rank: 0,
-                    playerName: players[i].name(),
-                    score: players[i].score()
-                });
+
+        let rankOffset = 0;
+        return players.sort(byScoreDescending)
+            .map(playerWithoutRank)
+            .map(playerWithRank);
+
+        function byScoreDescending(playerA, playerB) {
+            return playerB.score() - playerA.score();
         }
-        for (var j = 0; j < rankingNameAndScore.length; j++) {
-            var previous = rankingNameAndScore[j - 1];
-            var current = rankingNameAndScore[j];
-            var next = rankingNameAndScore[j + 1];
-            if (previous && next) {
-                current.rank = current.score === previous.score ? previous.rank : j + 1;
-            } else if (previous) {
-                current.rank = current.score === previous.score ? previous.rank : rankingNameAndScore.length;
+
+        function playerWithoutRank(player) {
+            return ({
+                rank: 0,
+                playerName: player.name(),
+                score: player.score()
+            });
+        }
+
+        function playerWithRank(playerWithoutRank, index, allPlayers) {
+            const previousPlayer = allPlayers[index - 1];
+            if (previousPlayer) {
+                if (playerWithoutRank.score === previousPlayer.score) {
+                    playerWithoutRank.rank = previousPlayer.rank;
+                    rankOffset++;
+                } else {
+                    playerWithoutRank.rank = previousPlayer.rank + 1 + rankOffset;
+                    rankOffset = 0;
+                }
             } else {
-                current.rank = 1;
+                playerWithoutRank.rank = 1;
             }
+
+            return playerWithoutRank;
         }
-        return rankingNameAndScore;
     }
 
     return {

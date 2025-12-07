@@ -1,21 +1,22 @@
+// noinspection ES6ConvertVarToLetConst
 var $swiss = window.$swiss || {};
 
 $swiss.pairing = function () {
 
     const playersWithWalkover = [];
 
-    var players = [];
-    var matches = [];
+    let players = [];
+    let matches = [];
 
-    function create(playersToPair) {
+    function create(playersToPair, onWalkOverFound) {
         players = playersToPair;
         matches = [];
-        for (var i = 0; i < players.length; i++) {
+        for (let i = 0; i < players.length; i++) {
 
             debug("Start finding player A in match " + (matches.length + 1));
-            var playerA;
+            let playerA;
 
-            var playerWithWalkOver = i === 0 && playersToPair.find((player) => player.hasWalkOver());
+            const playerWithWalkOver = i === 0 && playersToPair.find((player) => player.hasWalkOver());
             if (playerWithWalkOver
                 && !playersWithWalkover.some(player => player.name() === playerWithWalkOver.name())) {
                 playersWithWalkover.push(playerWithWalkOver);
@@ -31,14 +32,15 @@ $swiss.pairing = function () {
                 continue;
             }
 
-            var playerB = findCandidateB(playerA);
+            const playerB = findCandidateB(playerA);
 
             if (playerB) {
-                var match = $swiss.match.create(playerA, playerB);
+                const match = $swiss.match.create(playerA, playerB);
                 matches.push(match);
                 log("Match " + matches.length + " set up: " + match.name());
             } else {
-                playerA.walkOver();
+                let walkOverInfo = playerA.walkOver();
+                onWalkOverFound(walkOverInfo);
             }
         }
 
@@ -46,8 +48,8 @@ $swiss.pairing = function () {
     }
 
     function findCandidateB(playerA) {
-        for (var j = 0; j < players.length; j++) {
-            var candidateB = players[j];
+        for (let j = 0; j < players.length; j++) {
+            let candidateB = players[j];
             if (matches.some(match => match.hasPlayer(candidateB))
                 || candidateB.hasPlayed(playerA)
                 || candidateB.name() === playerA.name()) {

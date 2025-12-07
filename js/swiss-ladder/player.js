@@ -1,12 +1,13 @@
+// noinspection ES6ConvertVarToLetConst
 var $swiss = window.$swiss || {};
 
 $swiss.player = function () {
 
     function create(playerName) {
 
-        var totalScore = 0;
-        var opponentNames = [];
-        var hasAtLeastOneWalkOver = false;
+        let totalScore = 0;
+        let opponentNames = [];
+        let hasAtLeastOneWalkOver = false;
 
         function name() {
             return playerName;
@@ -19,7 +20,12 @@ $swiss.player = function () {
         function walkOver() {
             log(name() + " must walk over");
             hasAtLeastOneWalkOver = true;
-            totalScore += parseInt(Math.abs(totalScore) / 2, 10);
+            const compensation = parseInt(Math.abs(totalScore) / 2);
+            totalScore += compensation;
+            return {
+                playerName: playerName,
+                compensation: compensation
+            }
         }
 
         function hasWalkOver() {
@@ -33,7 +39,7 @@ $swiss.player = function () {
         }
 
         function hasPlayed(otherPlayer) {
-            var hasPlayed = opponentNames.indexOf(otherPlayer.name()) >= 0;
+            const hasPlayed = opponentNames.indexOf(otherPlayer.name()) >= 0;
             log(name() + " has " + (hasPlayed ? "" : "NOT ") + "played against " + otherPlayer.name());
             return hasPlayed;
         }

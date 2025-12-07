@@ -1,10 +1,11 @@
+// noinspection ES6ConvertVarToLetConst
 var $swiss = window.$swiss || {};
 
 $swiss.ladder = function () {
 
     function create(players) {
 
-        var firstRound = true;
+        let firstRound = true;
 
         log("New swiss ladder with " + players.length + " players created");
 
@@ -15,14 +16,14 @@ $swiss.ladder = function () {
             } else {
                 sortPlayersByScore();
             }
-            var theRanking = $swiss.ranking.create(players);
+            let theRanking = $swiss.ranking.create(players);
             logRanking(theRanking);
             return theRanking;
         }
 
-        function pairing() {
+        function pairing(onWalkOverFound) {
             groupLog("Pairing players");
-            var matches = $swiss.pairing.create(players);
+            let matches = $swiss.pairing.create(players, onWalkOverFound);
             firstRound = false;
             logPairing(matches);
             endGroupLog();
@@ -30,7 +31,7 @@ $swiss.ladder = function () {
         }
 
         function randomizePlayers() {
-            var j, x, i;
+            let j, x, i;
             for (i = players.length - 1; i > 0; i--) {
                 j = Math.floor(Math.random() * (i + 1));
                 x = players[i];
@@ -46,9 +47,9 @@ $swiss.ladder = function () {
         }
 
         function logRanking(ranking) {
-            var orderOfPlayers = "Ranking: ";
-            for (var i = 0; i < ranking.length; i++) {
-                var maybeComma = i === (ranking.length - 1) ? "" : ", ";
+            let orderOfPlayers = "Ranking: ";
+            for (let i = 0; i < ranking.length; i++) {
+                const maybeComma = i === (ranking.length - 1) ? "" : ", ";
                 orderOfPlayers +=
                     ranking[i].rank + ". " +
                     ranking[i].playerName +
@@ -59,10 +60,10 @@ $swiss.ladder = function () {
         }
 
         function logPairing(matches) {
-            var pairing = "Pairing: ";
-            for (var i = 0; i < matches.length; i++) {
-                var match = matches[i];
-                var maybeComma = i === (matches.length - 1) ? "" : ", ";
+            let pairing = "Pairing: ";
+            for (let i = 0; i < matches.length; i++) {
+                const match = matches[i];
+                const maybeComma = i === (matches.length - 1) ? "" : ", ";
                 pairing +=
                     (i + 1) + ". " +
                     "'" + match.name() + "'" +

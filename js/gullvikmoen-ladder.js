@@ -1,36 +1,36 @@
+// noinspection ES6ConvertVarToLetConst
 var $gullvikmoen = window.$gullvikmoen || {};
 
 $gullvikmoen.controller = function () {
 
-    var showAbout;
-    var players = [];
-    var ladder;
-    var ranking;
-    var matches;
-    var roundCount;
+    let showAbout;
+    let ladder;
+    let ranking;
+    let matches;
+    let roundCount;
+    const players = [];
+    const playersWithWalkover = [];
 
-    var aboutPanel = document.getElementById('aboutPanel');
-    var addPlayersPanel = document.getElementById('addPlayersPanel');
-    var rankingPanel = document.getElementById('rankingPanel');
-    var ladderFinishedPanel = document.getElementById('ladderFinishedPanel');
+    const aboutPanel = document.getElementById('aboutPanel');
+    const addPlayersPanel = document.getElementById('addPlayersPanel');
+    const rankingPanel = document.getElementById('rankingPanel');
+    const ladderFinishedPanel = document.getElementById('ladderFinishedPanel');
 
-    var pairingPanel = document.getElementById('pairingPanel');
-    var aboutLink = document.getElementById('aboutLink');
-    var playerName = document.getElementById('playerName');
-    var roundsToPlay = document.getElementById('roundsToPlay');
-    var playerList = document.getElementById('playerList');
-    var rankingList = document.getElementById('rankingList');
-    var pairingList = document.getElementById('pairingList');
-    var resultsList = document.getElementById('resultsList');
-    var roundSpan = document.getElementById('roundSpan');
-    var pairPlayersButton = document.getElementById('pairPlayersButton');
+    const pairingPanel = document.getElementById('pairingPanel');
+    const aboutLink = document.getElementById('aboutLink');
+    const playerName = document.getElementById('playerName');
+    const roundsToPlay = document.getElementById('roundsToPlay');
+    const playerList = document.getElementById('playerList');
+    const rankingList = document.getElementById('rankingList');
+    const pairingList = document.getElementById('pairingList');
+    const resultsList = document.getElementById('resultsList');
+    const roundSpan = document.getElementById('roundSpan');
+    const pairPlayersButton = document.getElementById('pairPlayersButton');
 
     init();
 
     function init() {
-        for (var i = 0; i < players.length; i++) {
-            players[i].reset();
-        }
+        players.forEach(player => player.reset());
         ladder = null;
         ranking = null;
         matches = null;
@@ -50,12 +50,12 @@ $gullvikmoen.controller = function () {
         if (!playerName.value) {
             return;
         }
-        var thePlayerName = playerName.value.trim();
+        const thePlayerName = playerName.value.trim();
         if (thePlayerName.length === 0) {
             playerName.value = "";
             return;
         }
-        var alreadyAdded = players.some(player => player.name() === thePlayerName);
+        const alreadyAdded = players.some(player => player.name() === thePlayerName);
         if (alreadyAdded) {
             playerName.value = thePlayerName + " finnes allerede!";
             setTimeout(function () {
@@ -86,20 +86,20 @@ $gullvikmoen.controller = function () {
         if (roundCount >= ladder.roundsToPlay()) {
             renderLadderFinished();
         } else {
-            matches = ladder.pairing();
+            matches = ladder.pairing(playerWithWalkover => playersWithWalkover.push(playerWithWalkover));
             renderNewMatches();
         }
     }
 
     function pointsValidationErrors() {
-        for (var i = 0; i < matches.length; i++) {
-            var pointsPlayerAElement = document.getElementById("pointsPlayerAMatch" + i);
-            if (isNaN(parseInt(pointsPlayerAElement.value, 10))) {
+        for (let i = 0; i < matches.length; i++) {
+            const pointsPlayerAElement = document.getElementById("pointsPlayerAMatch" + i);
+            if (isNaN(parseInt(pointsPlayerAElement.value))) {
                 pointsPlayerAElement.focus();
                 return true;
             }
-            var pointsPlayerBElement = document.getElementById("pointsPlayerBMatch" + i);
-            if (isNaN(parseInt(pointsPlayerBElement.value, 10))) {
+            const pointsPlayerBElement = document.getElementById("pointsPlayerBMatch" + i);
+            if (isNaN(parseInt(pointsPlayerBElement.value))) {
                 pointsPlayerBElement.focus();
                 return true;
             }
@@ -111,11 +111,11 @@ $gullvikmoen.controller = function () {
         if (pointsValidationErrors()) {
             return;
         }
-        for (var i = 0; i < matches.length; i++) {
-            var pointsPlayerA = parseInt(document.getElementById("pointsPlayerAMatch" + i).value, 10);
-            var pointsPlayerB = parseInt(document.getElementById("pointsPlayerBMatch" + i).value);
-            matches[i].result(pointsPlayerA, pointsPlayerB);
-        }
+        matches.forEach((match, index) => {
+            const pointsPlayerA = parseInt(document.getElementById("pointsPlayerAMatch" + index).value);
+            const pointsPlayerB = parseInt(document.getElementById("pointsPlayerBMatch" + index).value);
+            match.result(pointsPlayerA, pointsPlayerB);
+        });
         pairPlayers();
     }
 
@@ -140,12 +140,12 @@ $gullvikmoen.controller = function () {
 
     function renderPlayers() {
         playerList.innerHTML = "";
-        for (var i = 0; i < players.length; i++) {
-            var a = document.createElement("a");
+        for (let i = 0; i < players.length; i++) {
+            const a = document.createElement("a");
             a.href = 'javascript:$gullvikmoen.controller.removePlayer(' + i + ');';
             a.innerText = "" + players[i].name();
             a.title = "Klikk for å slette " + players[i].name();
-            var li = document.createElement("li");
+            const li = document.createElement("li");
             li.id = "player" + (players.length - 1);
             li.appendChild(a);
             playerList.appendChild(li);
@@ -161,32 +161,32 @@ $gullvikmoen.controller = function () {
             return;
         }
         rankingPanel.className = "";
-        var round = document.createElement("h3");
-        round.innerHTML = "Etter runde " + roundCount;
-        var thisRoundRankingList = document.createElement("div");
+        const round = document.createElement("h3");
+        round.innerHTML = "Stilling etter runde " + roundCount;
+        const thisRoundRankingList = document.createElement("div");
         thisRoundRankingList.appendChild(round);
-        var rankingTable = document.createElement("table");
-        var headerRow = document.createElement("thead");
-        var rankHeader = document.createElement("td");
+        const rankingTable = document.createElement("table");
+        const headerRow = document.createElement("thead");
+        const rankHeader = document.createElement("td");
         rankHeader.innerText = "#";
-        var nameHeader = document.createElement("td");
+        const nameHeader = document.createElement("td");
         nameHeader.innerText = "Navn";
-        var scoreHeader = document.createElement("td");
+        const scoreHeader = document.createElement("td");
         scoreHeader.innerText = "Poeng";
         headerRow
             .appendChild(rankHeader)
             .appendChild(nameHeader)
             .appendChild(scoreHeader);
         rankingTable.appendChild(headerRow);
-        for (var i = 0; i < ranking.length; i++) {
-            var rankCell = document.createElement("td");
+        for (let i = 0; i < ranking.length; i++) {
+            const rankCell = document.createElement("td");
             rankCell.innerText = ranking[i].rank + ". ";
-            var nameCell = document.createElement("td");
+            const nameCell = document.createElement("td");
             nameCell.innerText = ranking[i].playerName;
-            var scoreCell = document.createElement("td");
+            const scoreCell = document.createElement("td");
             scoreCell.innerText = ranking[i].score;
             scoreCell.className = "resultPoints right";
-            var rankingRow = document.createElement("tr");
+            const rankingRow = document.createElement("tr");
             rankingRow
                 .appendChild(rankCell)
                 .appendChild(nameCell)
@@ -194,29 +194,44 @@ $gullvikmoen.controller = function () {
             rankingTable.appendChild(rankingRow);
         }
         thisRoundRankingList.appendChild(rankingTable);
+
+        let matchResults = "";
         if (matches) {
-            var table = "<table>";
-            for (var j = 0; j < matches.length; j++) {
-                table +=
+            matchResults = "<table><thead><td colspan='3'>Kamper</td></thead>";
+            matches.forEach(match =>
+                matchResults +=
                     "<tr>" +
-                    "<td>" + matches[j].result().name + ": </td>" +
+                    "<td>" + match.result().name + ": </td>" +
                     "<td>&nbsp;</td>" +
-                    "<td class='resultPoints'>" + matches[j].result().points + "</td>" +
-                    "</tr>";
-            }
-            table += "</table>";
+                    "<td class='resultPoints'>" + match.result().points + "</td>" +
+                    "</tr>");
+            matchResults += "</table>";
         }
+
+        let compensationTable = "";
+        let playerWithWalkover = playersWithWalkover.pop();
+        if (playerWithWalkover) {
+            compensationTable = "<table>" +
+                "<thead><td>Kompensasjon</td></thead>" +
+                "<tr><td>" + playerWithWalkover.playerName + ": +<span class='resultPoints'>" + playerWithWalkover.compensation + "</span></td></tr>" +
+                "</table>";
+        }
+
         rankingList.innerHTML =
-            "<tr><td>" + thisRoundRankingList.innerHTML + "</td>" +
-            "<td><hr>" + table + resultsList.innerHTML + "</td></tr>" +
+            "<tr>" +
+            "<td>" + thisRoundRankingList.innerHTML + "</td>" +
+            "<td>" + compensationTable + "</td>" +
+            "<td>" + matchResults + resultsList.innerHTML + "</td>" +
+            "</tr>" +
+            // Previous rankings and matches
             rankingList.innerHTML;
     }
 
     function renderNewMatches() {
         pairingList.innerHTML = "";
-        var table = "<table>";
+        let table = "<table>";
         roundSpan.innerText = "" + (roundCount + 1) + " (av " + ladder.roundsToPlay() + ")";
-        for (var i = 0; i < matches.length; i++) {
+        for (let i = 0; i < matches.length; i++) {
             table += "<tr><td>" + (i + 1) + ". " + matches[i].name() + ": </td>";
             table += "<td>" +
                 "<input type='text' minlength='1' maxlength='2' required id='pointsPlayerAMatch" + i + "' class='points'>" +
@@ -227,6 +242,7 @@ $gullvikmoen.controller = function () {
                 "</td>";
             table += "</tr>";
         }
+        playersWithWalkover.forEach(player => table += "<tr><td>" + player.playerName + " må stå over" + "</td></tr>");
         table += "</table>";
         pairingList.innerHTML = table;
         roundCount++;
@@ -258,7 +274,7 @@ $gullvikmoen.delegate = function () {
         function handleWith(listener) {
 
             function hasParentWithId(element) {
-                var parent = element.parentNode;
+                let parent = element.parentNode;
                 if (!parent) {
                     return false;
                 }

@@ -1,10 +1,11 @@
+// noinspection ES6ConvertVarToLetConst
 var $swiss = window.$swiss || {};
 
 $swiss.match = function () {
 
     function create(playerA, playerB) {
 
-        var game = null;
+        let game = null;
 
         function name() {
             return playerA.name() + " - " + playerB.name();
